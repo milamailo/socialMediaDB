@@ -1,10 +1,11 @@
 -- Find all friends of a user.
-use socialmediadb;
+USE socialmediadb;
 
-set @uid = 1;
+SET @uid = 1;
 
-SELECT Users.Username, Users.FirstName, Users.LastName
-FROM Friendships
-JOIN Users ON (Friendships.User2ID = Users.UserID OR Friendships.User1ID = Users.UserID)
-WHERE (Friendships.User1ID = @uid OR Friendships.User2ID = @uid)
-AND Users.UserID != @uid;
+SELECT U.Username, U.FirstName, U.LastName
+FROM Users U
+JOIN Friendships F ON (F.User1ID = U.UserID OR F.User2ID = U.UserID)
+WHERE (F.User1ID = @uid OR F.User2ID = @uid)
+AND U.UserID != @uid;
+
